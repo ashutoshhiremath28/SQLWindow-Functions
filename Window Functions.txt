@@ -1,0 +1,21 @@
+Frequently used window function examples
+
+
+
+Rank, Dense Rank and Rownum
+
+select order_date, customer_uid, subtotal_eur, 
+row_number()over(partition by Customer_Uid order by Subtotal_EUR) order_value_rownum, 
+rank()over(partition by customer_uid order by subtotal_eur) order_value_rank,
+dense_rank()over(partition by customer_uid order by Subtotal_EUR) order_value_denserank
+from `Revenue-Data` 
+
+
+
+LAG, LEAD and AVG
+
+select customer_uid, order_uid,
+lag(order_uid)over(partition by customer_uid order by order_date) prev_order,
+lead(order_uid)over(partition by customer_uid order by order_date) next_order,
+avg(subtotal_eur)over(partition by customer_uid) AOV
+from 'Revenue-Data'
